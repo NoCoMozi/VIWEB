@@ -1,5 +1,6 @@
 import React from "react";
 import "./topSection.styles.css";
+import Button from "../Button/Button";
 
 const TopSection = () => {
   return (
@@ -32,7 +33,7 @@ const TopSection = () => {
           are not free until we are all free.
         </p>
         <div className="buttons-container">
-            <
+          <Button text="Join The Movement" />
         </div>
       </div>
     </div>
