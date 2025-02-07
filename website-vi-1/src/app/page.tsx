@@ -1,11 +1,12 @@
-import Image from "next/image";
-import styles from "./page.module.css";
 import Header from "@/components/Header/Header";
+import TopSection from "@/components/TopSection/TopSection";
+import "./page.styles.css";
 
 export default function Home() {
   return (
-    <div >
+    <div className="page">
       <Header />
+      <TopSection />
     </div>
   );
 }
