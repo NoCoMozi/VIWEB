@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
+import "@/styles/components/contactForm.styles.scss";
+import Button from "../Button/Button";
 
 const Contact = () => {
   const [result, setResult] = useState("");
-  const formRef = useRef<HTMLFormElement | null>(null); // Create a reference to the form
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +22,6 @@ const Contact = () => {
 
     if (data.success) {
       setResult("Form Submitted Successfully");
-      // Use ref to reset the form instead of event.currentTarget
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -31,13 +32,12 @@ const Contact = () => {
   };
 
   return (
-    <div id="contact">
-      <h2>Get in Touch</h2>
-
-      <form onSubmit={onSubmit} ref={formRef}>
-        {" "}
-        {/* Add ref here */}
-        <div>
+    <div id="contact" className="contact-form-container">
+      <div>
+        <h2> Header </h2>
+      </div>
+      <form onSubmit={onSubmit} ref={formRef} className="contact-form">
+        <div className="form-group">
           <input
             type="text"
             placeholder="Enter your name"
@@ -57,7 +57,7 @@ const Contact = () => {
           placeholder="Enter your message"
           required
         ></textarea>
-        <button type="submit">Submit</button>
+        <Button text="Submit" />
         <p>{result}</p>
       </form>
     </div>

@@ -34,6 +34,11 @@
   cursor: default;
 }
 
+// CHANGE COLOR
+.button:hover {
+  background-color: #3b5bcd; /* Darker shade on hover */
+}
+
 ///fix this
 
 .button:focus {
