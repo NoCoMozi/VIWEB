@@ -56,8 +56,10 @@ const Contact = () => {
           rows={6}
           placeholder="Enter your message"
           required
-        ></textarea>
-        <Button text="Submit" />
+        />
+        <div className="form-button">
+          <Button text="Submit" />
+        </div>
         <p>{result}</p>
       </form>
     </div>

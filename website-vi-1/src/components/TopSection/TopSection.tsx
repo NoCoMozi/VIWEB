@@ -1,8 +1,11 @@
 import React from "react";
 import "@/styles/components/topSection.styles.scss";
 import Button from "../Button/Button";
+import { useRouter } from "next/router";
 
 const TopSection = () => {
+  const router = useRouter();
+
   return (
     <div className="top-section-container">
       <div className="title-container">
@@ -33,8 +36,14 @@ const TopSection = () => {
           are not free until we are all free.
         </p> */}
         <div className="buttons-container">
-          <Button text="Join The Movement" />
-          <Button text="Support the Movement" />
+          <Button
+            onClick={() => router.push("/join")}
+            text="Join The Movement"
+          />
+          <Button
+            text="Support the Movement"
+            onClick={() => router.push("/support")}
+          />
         </div>
       </div>
     </div>
