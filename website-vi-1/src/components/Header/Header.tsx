@@ -15,18 +15,18 @@ const Header = () => {
         <Link className="link" href={"/about"}>
           About
         </Link>
-        <Link className="link" href={"/about"}>
+        {/* <Link className="link" href={"/about"}>
           Events
-        </Link>
+        </Link> */}
         <Link className="link" href={"/about"}>
           Break The Ice
         </Link>
-        <Link className="link" href={"/about"}>
+        {/* <Link className="link" href={"/about"}>
           News & Education
         </Link>
         <Link className="link" href={"/about"}>
           Resources
-        </Link>
+        </Link> */}
         <Link className="link" href={"/about"}>
           Support
         </Link>

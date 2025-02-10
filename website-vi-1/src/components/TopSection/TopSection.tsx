@@ -7,15 +7,15 @@ const TopSection = () => {
     <div className="top-section-container">
       <div className="title-container">
         <h1> We are Voices Ignited </h1>
-        <hr></hr>
       </div>
+
       <div className="description-container">
         <h3>
           Voices Ignited is bipartisian organization dedicated to eliminating
           corruption and greed that currently plagues our government. We are not
           about left vs right. We are <span>TOP VS DOWN</span>.
         </h3>
-        <p>
+        {/* <p>
           We the people recognize our current government no longer serves the
           best interests of its people. Every day millions are deprived of basic
           humans rights and baisc needs to further the interests of the elite.
@@ -31,9 +31,10 @@ const TopSection = () => {
           While we are we are a <span>TOP VS DOWN</span> organization, we stand
           for intersecutionality and equality for ALL people, no exceptions. We
           are not free until we are all free.
-        </p>
+        </p> */}
         <div className="buttons-container">
           <Button text="Join The Movement" />
+          <Button text="Support the Movement" />
         </div>
       </div>
     </div>
