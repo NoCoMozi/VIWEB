@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../../public/Images/white-logo.png";
-import "./header.styles.css";
+import "@/styles/components/header.styles.scss";
 import Link from "next/link";
 
 const Header = () => {

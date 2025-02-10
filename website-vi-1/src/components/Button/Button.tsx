@@ -1,5 +1,5 @@
 import React from "react";
-import { text } from "stream/consumers";
+import "@/styles/components/button.styles.scss";
 
 interface ButtonProps {
   text: string;

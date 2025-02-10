@@ -1,5 +1,5 @@
 import React from "react";
-import "./topSection.styles.css";
+import "@/styles/components/topSection.styles.scss";
 import Button from "../Button/Button";
 
 const TopSection = () => {
