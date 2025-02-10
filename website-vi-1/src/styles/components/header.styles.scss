@@ -28,6 +28,11 @@
   }
 }
 
+/* Remove underline for all anchor tags */
+a {
+  text-decoration: none;
+}
+
 @media (max-width: 1100px) {
   .header-container {
     display: flex;

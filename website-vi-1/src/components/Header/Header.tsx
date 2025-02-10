@@ -9,25 +9,28 @@ const Header = () => {
     <div className="header-container">
       <Image className="logo" src={logo} alt={"Logo"} />
       <div className="links-container">
-        <Link className="link" href={"/home"}>
+        <Link className="link" href={"/"}>
           Home
         </Link>
         <Link className="link" href={"/about"}>
           About
         </Link>
+        <Link className="link" href={"/join"}>
+          Join
+        </Link>
         {/* <Link className="link" href={"/about"}>
           Events
         </Link> */}
-        <Link className="link" href={"/about"}>
+        <Link className="link" href={"/breaktheice"}>
           Break The Ice
         </Link>
-        {/* <Link className="link" href={"/about"}>
+        {/* <Link className="link" href={"/news&eduation"}>
           News & Education
         </Link>
-        <Link className="link" href={"/about"}>
+        <Link className="link" href={"/resources"}>
           Resources
         </Link> */}
-        <Link className="link" href={"/about"}>
+        <Link className="link" href={"/support"}>
           Support
         </Link>
       </div>
