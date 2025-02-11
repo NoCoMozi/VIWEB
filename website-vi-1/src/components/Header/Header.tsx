@@ -18,7 +18,7 @@ const Header = () => {
         <Link className="link" href={"/join"}>
           Join
         </Link>
-        {/* <Link className="link" href={"/about"}>
+        {/* <Link className="link" href={"/events"}>
           Events
         </Link> */}
         <Link className="link" href={"/breaktheice"}>
