@@ -18,6 +18,8 @@ const Contact = () => {
       body: formData,
     });
 
+    console.log(response);
+
     const data = await response.json();
 
     if (data.success) {
@@ -43,12 +45,14 @@ const Contact = () => {
             placeholder="Enter your name"
             required
             name="name"
+            aria-label="Enter your name"
           />
           <input
             type="email"
             placeholder="Enter your email"
             required
             name="email"
+            aria-label="Enter your email"
           />
         </div>
         <textarea
@@ -56,6 +60,7 @@ const Contact = () => {
           rows={6}
           placeholder="Enter your message"
           required
+          aria-label="Enter your message"
         />
         <div className="form-button">
           <Button text="Submit" />
