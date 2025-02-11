@@ -69,7 +69,7 @@ describe("Contact Form", () => {
     );
   });
 
-  test("shows Form Submitted Successfull message after sent", async () => {
+  test("shows Form Submitted Successfully message after sent", async () => {
     render(<ContactForm />);
 
     fetchSpy.mockResolvedValueOnce({
@@ -103,23 +103,88 @@ describe("Contact Form", () => {
     );
   });
 
-  test("does not submit the form if fields are empty", () => {
-    const { getByText, getByPlaceholderText, getByRole } = render(
-      <ContactForm />
+  test("shows error message when the submission fails", async () => {
+    render(<ContactForm />);
+
+    fetchSpy.mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      statusText: "Bad Request",
+      json: jest.fn().mockResolvedValueOnce({
+        success: false,
+        message: "Failed to submit",
+      }),
+    } as Partial<Response> as Response);
+
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your name") as HTMLInputElement,
+      { target: { value: "John Doe" } }
+    );
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your email") as HTMLInputElement,
+      { target: { value: "john@example.com" } }
+    );
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your message") as HTMLTextAreaElement,
+      { target: { value: "Hello there!" } }
     );
 
-    const nameInput = getByPlaceholderText(
-      /enter your name/i
-    ) as HTMLInputElement;
-    const emailInput = getByPlaceholderText(
-      /enter your email/i
-    ) as HTMLInputElement;
-    const messageTextarea = getByRole("textbox", {
-      name: /enter your message/i,
-    }) as HTMLTextAreaElement;
+    fireEvent.click(submitButton);
+
+    await waitFor(() =>
+      expect(screen.getByText("Failed to submit")).toBeInTheDocument()
+    );
+  });
+
+  test("does not submit the form if fields are empty", () => {
+    const { getByText, getByPlaceholderText } = render(<ContactForm />);
+
+    const nameInput = getByPlaceholderText(/enter your name/i) as HTMLInputElement;
+    const emailInput = getByPlaceholderText(/enter your email/i) as HTMLInputElement;
+    const messageTextarea = getByPlaceholderText(/enter your message/i) as HTMLTextAreaElement;
 
     fireEvent.click(getByText(/submit/i));
 
-    expect(fetchSpy).not.toHaveBeenCalled();  
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(nameInput).toBeInvalid();
+    expect(emailInput).toBeInvalid();
+    expect(messageTextarea).toBeInvalid();
+  });
+
+  test("form fields reset after successful submission", async () => {
+    render(<ContactForm />);
+
+    fetchSpy.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      statusText: "OK",
+      json: jest.fn().mockResolvedValueOnce({ success: true }),
+    } as Partial<Response> as Response);
+
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your name") as HTMLInputElement,
+      { target: { value: "John Doe" } }
+    );
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your email") as HTMLInputElement,
+      { target: { value: "john@example.com" } }
+    );
+    fireEvent.change(
+      screen.getByPlaceholderText("Enter your message") as HTMLTextAreaElement,
+      { target: { value: "Hello there!" } }
+    );
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(screen.getByText("Form Submitted Successfully")).toBeInTheDocument());
+
+    // Check if form has been reset
+    expect(screen.getByPlaceholderText("Enter your name")).toHaveValue("");
+    expect(screen.getByPlaceholderText("Enter your email")).toHaveValue("");
+    expect(screen.getByPlaceholderText("Enter your message")).toHaveValue("");
   });
 });
