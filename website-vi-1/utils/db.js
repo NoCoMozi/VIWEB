@@ -1,32 +1,59 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
+///THIS IS NOT MOONGOOSE BUT WORKS TOO
+// // Function to connect to the database
+// export const connectToDatabase = async () => {
+//   if (mongoose.connections[0].readyState) {
+//     // Already connected
+//     return;
+//   }
 
-// MongoDB URI from environment variables
-const client = new MongoClient(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+//   try {
+//     // Connect to MongoDB using Mongoose
+//     await mongoose.connect(process.env.MONGODB_URI, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
 
-let cachedClient = null;
+//     console.log("Connected to MongoDB!");
+//   } catch (error) {
+//     console.error("Error connecting to MongoDB:", error);
+//     throw new Error("Failed to connect to MongoDB");
+//   }
+// };
+
+// // Function to get the database (using the cached connection)
+// export const getDatabase = () => {
+//   if (!cachedDb) {
+//     throw new Error(
+//       "Database not connected yet. Please call connectToDatabase first."
+//     );
+//   }
+//   return cachedDb;
+// };
+
+
+// Cache the Mongoose connection to avoid multiple connections in a single request
 let cachedDb = null;
 
-// Function to connect to the database and return the client
+// Connect to MongoDB using Mongoose
 export const connectToDatabase = async () => {
-  if (cachedClient && cachedDb) {
-    // If the client and db are already cached, return them
-    return { client: cachedClient, db: cachedDb };
+  if (cachedDb) {
+    return cachedDb; // Return cached connection
   }
 
   try {
-    // Connect to MongoDB
-    const connection = await client.connect();
-    const db = connection.db(); // Get the database (specified in the URI)
+    // Establish Mongoose connection
+    console.log("Attempting to connect to MongoDB...");
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    // Cache the client and db for future reuse
-    cachedClient = connection;
-    cachedDb = db;
+    console.log("Successfully connected to MongoDB!");
 
-    console.log("Connected to database!");
-    return { client: cachedClient, db: cachedDb };
+    // Cache the database connection to reuse in the future
+    cachedDb = mongoose.connection;
+    return cachedDb;
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     throw new Error("Failed to connect to MongoDB");
@@ -43,11 +70,13 @@ export const getDatabase = () => {
   return cachedDb;
 };
 
-// New function to list all collections in the database
+// New function to list all collections in the database using Mongoose
 export const getAllCollections = async () => {
   try {
-    const { db } = await connectToDatabase();
-    const collections = await db.listCollections().toArray(); // Lists all collections
+    const db = await connectToDatabase();
+
+    // List all collections using the Mongoose connection
+    const collections = await db.db.listCollections().toArray(); // db.db is the native MongoDB database object
     return collections.map((collection) => collection.name); // Returns just collection names
   } catch (error) {
     console.error("Error getting collections:", error);
@@ -55,11 +84,12 @@ export const getAllCollections = async () => {
   }
 };
 
+// Fetch data from a specific collection using Mongoose
 export const getCollectionData = async (collectionName) => {
   try {
-    const { db } = await connectToDatabase();
+    const db = await connectToDatabase();
 
-    // Get the specific collection
+    // Use the Mongoose connection to get the collection
     const collection = db.collection(collectionName);
 
     // Fetch all documents from the collection

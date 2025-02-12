@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // Define the schema for the Mission model
 const MissionSchema = new mongoose.Schema({
-  header: { type: String, required: true },
+  heading: { type: String, required: true },
 });
 
 const Mission =

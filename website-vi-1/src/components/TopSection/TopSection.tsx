@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@/styles/components/topSection.styles.scss";
 import Button from "../Button/Button";
 import { useRouter } from "next/router";
 
+// Define a TypeScript interface for the mission data structure
+interface Mission {
+  _id: string;
+  heading: string; // The 'heading' property you're using
+  createdAt: string;
+}
+
 const TopSection = () => {
   const router = useRouter();
+
+  const [missionData, setMissionData] = useState<Mission[]>([]);
+
+  useEffect(() => {
+    const fetchMissionData = async () => {
+      try {
+        const res = await fetch("/api/mission");
+        const data = await res.json();
+        setMissionData(data);
+      } catch (error) {
+        console.error("Error fetching mission data:", error);
+      }
+    };
+
+    fetchMissionData();
+  }, []);
 
   return (
     <div className="top-section-container">
@@ -13,11 +36,12 @@ const TopSection = () => {
       </div>
 
       <div className="description-container">
-        <h3>
-          Voices Ignited is bipartisian organization dedicated to eliminating
-          corruption and greed that currently plagues our government. We are not
-          about left vs right. We are <span>TOP VS DOWN</span>.
-        </h3>
+        {missionData.length > 0 ? (
+          <h3>{missionData[0].heading}</h3>
+        ) : (
+          <h3>Loading mission data...</h3> // Show loading state if no mission data is fetched
+        )}
+
         {/* <p>
           We the people recognize our current government no longer serves the
           best interests of its people. Every day millions are deprived of basic
