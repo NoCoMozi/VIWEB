@@ -1,0 +1,33 @@
+.about_page_container {
+  display: grid;
+  .top_container {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Half of the viewport height */
+    overflow: hidden;
+    .united_people {
+      width: 100%;
+      height: 100%;
+      //   object-fit: cover;
+      //   object-position: 40% 70%;
+    }
+    .about_header {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      //   background: rgba(0, 0, 0, 0.166); /* Optional: Adds readability */
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  }
+  .mission_statement_container {
+    position: relatives;
+    width: 100%;
+    height: 100%; /* Half of the viewport height */
+  }
+}
