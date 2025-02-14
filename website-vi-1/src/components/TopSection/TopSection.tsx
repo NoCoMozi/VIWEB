@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 interface Mission {
   _id: string;
   heading: string; // The 'heading' property you're using
-  content: string;
+  content: string[];
 }
 
 const TopSection = () => {
@@ -37,7 +37,7 @@ const TopSection = () => {
 
       <div className="description-container">
         {missionData.length > 0 ? (
-          <h3>{missionData[0].content}</h3>
+          <h3>{missionData[0].content[0]}</h3>
         ) : (
           <h3>Loading...</h3> // Show loading state if no mission data is fetched
         )}

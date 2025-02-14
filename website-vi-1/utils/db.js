@@ -10,7 +10,6 @@ import mongoose from "mongoose";
 //   try {
 //     // Connect to MongoDB using Mongoose
 //     await mongoose.connect(process.env.MONGODB_URI, {
-//       useNewUrlParser: true,
 //       useUnifiedTopology: true,
 //     });
 
@@ -31,7 +30,6 @@ import mongoose from "mongoose";
 //   return cachedDb;
 // };
 
-
 // Cache the Mongoose connection to avoid multiple connections in a single request
 let cachedDb = null;
 
@@ -45,8 +43,8 @@ export const connectToDatabase = async () => {
     // Establish Mongoose connection
     console.log("Attempting to connect to MongoDB...");
     await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
     });
 
     console.log("Successfully connected to MongoDB!");

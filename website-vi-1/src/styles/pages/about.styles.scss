@@ -1,9 +1,10 @@
 .about_page_container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   .top_container {
     position: relative;
     width: 100%;
-    height: 70vh; /* Half of the viewport height */
+    height: 50vh; /* Half of the viewport height */
     overflow: hidden;
     .united_people {
       width: 100%;
@@ -15,6 +16,7 @@
       position: absolute;
       top: 20%;
       left: 50%;
+      width: 100%;
       transform: translate(-50%, -50%);
       color: white;
       font-size: 3rem;
@@ -26,8 +28,36 @@
     }
   }
   .mission_statement_container {
-    position: relatives;
-    width: 100%;
-    height: 100%; /* Half of the viewport height */
+    display: grid;
+    place-items: center;
+    width: 100%; /* Adjust as needed */
+    height: 90%;
+    overflow: hidden;
+    .logo-white {
+      opacity: 0.1;
+      width: 100%;
+      height: 90%;
+      object-fit: cover;
+      grid-area: 1 / 1;
+    }
+    .mission_statement_words_container {
+      grid-area: 1 / 1; /* Places the text in the same grid cell as the image */
+      color: black;
+      text-align: center;
+      z-index: 1;
+      height: 100%;
+      width: 70%;
+      margin-top: 2rem;
+      .mission_title {
+        margin-top: 10rem;
+        margin-bottom: 7rem;
+        font-size: 28px;
+      }
+      .mission_statement_paragraph {
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 26px;
+      }
+    }
   }
 }
