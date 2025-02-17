@@ -3,6 +3,7 @@ import Image from "next/image";
 import LogoWhite from "../public/Images/vi_logo_white.jpg";
 import UnitedPeople from "../public/Images/united_people.jpg";
 import "@/styles/pages/about.styles.scss";
+import axios from "axios";
 
 interface Mission {
   _id: string;
@@ -12,15 +13,15 @@ interface Mission {
 
 const about = () => {
   const [missionData, setMissionData] = useState<Mission[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMissionData = async () => {
       try {
-        const res = await fetch("/api/mission");
-        const data = await res.json();
-        setMissionData(data);
+        const res = await axios.get("/api/mission");
+        setMissionData(res.data);
       } catch (error) {
-        console.error("Error fetching mission data:", error);
+        setError("Failed to load mission data.");
       }
     };
 
@@ -46,23 +47,20 @@ const about = () => {
           src={LogoWhite}
           alt="Voices Ignited Logo"
         />
-
-        {
-          missionData.length > 0 ? (
-            <div className="mission_statement_words_container">
-              <h2 className="mission_title">
-                Voices Ignited Mission Statement
-              </h2>
-              {missionData[1].content.map((text, index) => (
-                <p className="mission_statement_paragraph " key={index}>
-                  {text}
-                </p>
-              ))}
-            </div>
-          ) : (
-            <h3>Loading...</h3>
-          ) // Show loading state if no mission data is fetched
-        }
+        {error ? (
+          <h3>{error}</h3>
+        ) : missionData.length > 0 ? (
+          <div className="mission_statement_words_container">
+            <h2 className="mission_title">Voices Ignited Mission Statement</h2>
+            {missionData[1].content.map((text, index) => (
+              <p className="mission_statement_paragraph" key={index}>
+                {text}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <h3>Loading...</h3>
+        )}
       </div>
     </div>
   );
