@@ -21,7 +21,10 @@ const join = () => {
             ensure anyone who joins does so with positive intentions
           </h3>
           <Link className="join_link" href={"https://tr.ee/PR3W8XdqH0"}>
-            LinkTree Telegram
+            Linktree Telegram
+          </Link>
+          <Link className="join_link" href={"https://tr.ee/01X6whegb7"}>
+            Linktree Reddit
           </Link>
         </div>
         <div className="join_contact_form">
