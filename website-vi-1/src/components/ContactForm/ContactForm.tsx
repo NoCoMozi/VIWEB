@@ -18,8 +18,6 @@ const Contact = () => {
       body: formData,
     });
 
-    console.log(response);
-
     const data = await response.json();
 
     if (data.success) {
@@ -34,7 +32,11 @@ const Contact = () => {
   };
 
   return (
-    <div id="contact" className="contact-form-container">
+    <div
+      data-testid="contact-form"
+      id="contact"
+      className="contact-form-container"
+    >
       <div>
         <h2> Send Us an Email </h2>
       </div>

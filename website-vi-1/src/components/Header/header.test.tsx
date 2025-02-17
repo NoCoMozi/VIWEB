@@ -11,9 +11,13 @@ jest.mock("next/image", () => ({
 
 jest.mock("next/link", () => ({
   __esModule: true,
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
-  ),
+  default: ({
+    children,
+    href,
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => <a href={href}>{children}</a>,
 }));
 
 describe("Header Component", () => {
@@ -29,6 +33,7 @@ describe("Header Component", () => {
     expect(screen.getByText("Join")).toBeInTheDocument();
     expect(screen.getByText("Break The Ice")).toBeInTheDocument();
     expect(screen.getByText("Support")).toBeInTheDocument();
+    expect(screen.getByText("Shop")).toBeInTheDocument();
   });
 
   test("should contain all navigation links", () => {
@@ -37,7 +42,7 @@ describe("Header Component", () => {
     // Test that the correct links are present
     const links = screen.getAllByRole("link");
 
-    expect(links).toHaveLength(5); // We are rendering 5 links in total
+    expect(links).toHaveLength(6); // We are rendering 5 links in total
     expect(links[0]).toHaveAttribute("href", "/");
     expect(links[1]).toHaveAttribute("href", "/about");
     expect(links[2]).toHaveAttribute("href", "/join");
@@ -62,7 +67,7 @@ describe("Header Component", () => {
     // Check if clicking on the "Home" link navigates to the right URL
     const homeLink = screen.getByText("Home");
     expect(homeLink).toHaveAttribute("href", "/");
-    
+
     // Check other links as well
     const aboutLink = screen.getByText("About");
     expect(aboutLink).toHaveAttribute("href", "/about");

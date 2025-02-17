@@ -18,7 +18,7 @@ const join = () => {
           <h3>
             Click the button to be redirected to the Linktree in order to join
             the telegram or reddit chat. This is where we get to know each
-            other, organize, plan, share resources, and more
+            other, organize, plan, share resources, and more.
           </h3>
           <h3>
             There is a holding room process for vetting for the telegram chat so
