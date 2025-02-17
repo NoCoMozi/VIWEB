@@ -2,11 +2,16 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import Link from "next/link";
 import React from "react";
 import "@/styles/pages/join.styles.scss";
+import Image from "next/image";
+import Protestors from "../public/Images/protestors.jpg";
 
 const join = () => {
   return (
     <div className="join_page">
-      <h1 className="join_header">Interested in Joining Voices Ignited? </h1>
+      <div className="header-container">
+        <Image className="join_image" src={Protestors} alt="Protestors" />
+        <h1 className="join_header">Interested in Joining Voices Ignited? </h1>
+      </div>
       <div className="join_page_information_container">
         <div className="join_telegram_container">
           <h2>Join the Telegram</h2>
