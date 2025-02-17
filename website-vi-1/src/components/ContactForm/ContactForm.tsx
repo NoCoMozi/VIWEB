@@ -36,7 +36,7 @@ const Contact = () => {
   return (
     <div id="contact" className="contact-form-container">
       <div>
-        <h2> Header </h2>
+        <h2> Send Us an Email </h2>
       </div>
       <form onSubmit={onSubmit} ref={formRef} className="contact-form">
         <div className="form-group">
