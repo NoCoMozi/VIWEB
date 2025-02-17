@@ -1,9 +1,13 @@
 import React from "react";
+import "@/styles/pages/support.styles.scss";
 
 const support = () => {
   return (
-    <div>
-      <h2> This is the support page </h2>
+    <div className="support_container">
+      <iframe
+        src="https://www.gofundme.com/f/voices-ignited"
+        className="support_iframe"
+      ></iframe>
     </div>
   );
 };
