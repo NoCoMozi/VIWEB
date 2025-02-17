@@ -16,14 +16,15 @@ const join = () => {
         <div className="join_telegram_container">
           <h2>Join the Telegram</h2>
           <h3>
-            Click the button to be redirected to the LinkTree in order to join
-            the telegram chat. This is where we get to know each other,
-            organize, plan, share resources, and more
+            Click the button to be redirected to the Linktree in order to join
+            the telegram or reddit chat. This is where we get to know each
+            other, organize, plan, share resources, and more
           </h3>
           <h3>
-            There is a holding room process for vetting so please be patient if
-            you aren't let in right away. We do this for your safety and to
-            ensure anyone who joins does so with positive intentions
+            There is a holding room process for vetting for the telegram chat so
+            please be patient if you aren't let in right away. We do this for
+            your safety and to ensure anyone who joins does so with positive
+            intentions
           </h3>
           <Link className="join_link" href={"https://tr.ee/PR3W8XdqH0"}>
             Linktree Telegram
