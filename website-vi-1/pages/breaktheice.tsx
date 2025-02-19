@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
 
@@ -11,6 +11,19 @@ export default function Home() {
   const [center, setCenter] = useState<[number, number]>([51.505, -0.09]); // Default center
   const [error, setError] = useState<string | null>(null);
   const [pins, setPins] = useState<{ lat: number; lng: number }[]>([]);
+
+  useEffect(() => {
+    const fetchPins = async () => {
+      try {
+        const response = await axios.get("/api/pins"); // Fetch existing pins from API
+        setPins(response.data); // Set pins state
+      } catch (error) {
+        console.error("Error fetching pins:", error);
+      }
+    };
+
+    fetchPins(); // Load pins when the component mounts
+  }, []);
 
   const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setZipCode(e.target.value);
@@ -44,12 +57,12 @@ export default function Home() {
 
   const handleMapClick = async (coords: [number, number]) => {
     try {
-      console.log("Dropped pin at:", coords); // Log the coordinates
+      console.log("Dropped pin at:", coords);
       const response = await axios.post("/api/pins", {
         lat: coords[0],
         lng: coords[1],
       });
-      console.log("API response:", response.data); // Log the API response
+      console.log("API response:", response.data);
       setPins((prevPins) => [...prevPins, { lat: coords[0], lng: coords[1] }]);
     } catch (error) {
       console.error("Error saving pin:", error);
@@ -71,7 +84,7 @@ export default function Home() {
         </button>
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <MapComponent center={center} onMapClick={handleMapClick} />
+      <MapComponent center={center} onMapClick={handleMapClick} pins={pins} />
     </div>
   );
 }
