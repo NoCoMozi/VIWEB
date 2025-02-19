@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import "@/styles/pages/breaktheice.styles.scss";
 
 const MapComponent = dynamic(() => import("../src/components/Map/Map"), {
   ssr: false,
@@ -8,26 +9,26 @@ const MapComponent = dynamic(() => import("../src/components/Map/Map"), {
 
 export default function Home() {
   const [zipCode, setZipCode] = useState("");
-  const [center, setCenter] = useState<[number, number]>([51.505, -0.09]); // Default center
+  const [center, setCenter] = useState<[number, number]>([38.9072, -77.0369]); // Washington, D.C.
   const [error, setError] = useState<string | null>(null);
   const [pins, setPins] = useState<{ lat: number; lng: number }[]>([]);
 
   useEffect(() => {
     const fetchPins = async () => {
       try {
-        const response = await axios.get("/api/pins"); // Fetch existing pins from API
-        setPins(response.data); // Set pins state
+        const response = await axios.get("/api/pins");
+        setPins(response.data);
       } catch (error) {
         console.error("Error fetching pins:", error);
       }
     };
 
-    fetchPins(); // Load pins when the component mounts
+    fetchPins();
   }, []);
 
   const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setZipCode(e.target.value);
-    setError(null); // Clear error when user types
+    setError(null);
   };
 
   const handleSearch = async () => {
@@ -62,7 +63,6 @@ export default function Home() {
         lat: coords[0],
         lng: coords[1],
       });
-      console.log("API response:", response.data);
       setPins((prevPins) => [...prevPins, { lat: coords[0], lng: coords[1] }]);
     } catch (error) {
       console.error("Error saving pin:", error);
@@ -70,21 +70,21 @@ export default function Home() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div style={{ marginBottom: "10px" }}>
+    <div className="home-container">
+      <div className="search-container">
         <input
           type="text"
           placeholder="Enter zip code"
           value={zipCode}
           onChange={handleZipCodeChange}
-          style={{ padding: "8px", marginRight: "10px" }}
+          className="input-field"
         />
-        <button onClick={handleSearch} style={{ padding: "8px 16px" }}>
+        <button onClick={handleSearch} className="search-button">
           Search
         </button>
       </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <MapComponent center={center} onMapClick={handleMapClick} pins={pins} />
+      {error && <p className="error-message">{error}</p>}
+      <MapComponent center={center} pins={pins} onMapClick={handleMapClick} />
     </div>
   );
 }

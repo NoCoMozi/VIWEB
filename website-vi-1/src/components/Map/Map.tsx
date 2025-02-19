@@ -1,8 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { useState } from "react";
 import { useMapEvent } from "react-leaflet/hooks";
+import "@/styles/components/map.styles.scss";
 
+// Fix for default marker icons in Leaflet
 const defaultIcon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
   iconRetinaUrl:
@@ -16,15 +19,20 @@ const defaultIcon = L.icon({
 
 interface MapComponentProps {
   center: [number, number];
-  pins: { lat: number; lng: number }[];
+  pins?: { lat: number; lng: number }[];
   onMapClick?: (coords: [number, number]) => void;
 }
 
-const MapComponent = ({ center, pins, onMapClick }: MapComponentProps) => {
+const MapComponent = ({ center, pins = [], onMapClick }: MapComponentProps) => {
+  const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
+    null
+  );
+
   // Handle map click events
   const MapClickHandler = () => {
     useMapEvent("click", (e) => {
       const { lat, lng } = e.latlng;
+      setMarkerPosition([lat, lng]);
       if (onMapClick) {
         onMapClick([lat, lng]);
       }
@@ -37,19 +45,28 @@ const MapComponent = ({ center, pins, onMapClick }: MapComponentProps) => {
       key={`${center[0]}-${center[1]}`} // Force re-render when center changes
       center={center}
       zoom={13}
-      style={{ height: "500px", width: "100%" }}
+      className="map-container"
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {/* Render all existing pins */}
+
+      {/* Render stored pins */}
       {pins.map((pin, index) => (
         <Marker key={index} position={[pin.lat, pin.lng]} icon={defaultIcon}>
           <Popup>Pinned Location</Popup>
         </Marker>
       ))}
-      <MapClickHandler /> {/* Add the click handler */}
+
+      {/* Render user-dropped pin */}
+      {markerPosition && (
+        <Marker position={markerPosition} icon={defaultIcon}>
+          <Popup>Your pinned location</Popup>
+        </Marker>
+      )}
+
+      <MapClickHandler />
     </MapContainer>
   );
 };
