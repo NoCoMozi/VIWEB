@@ -30,36 +30,24 @@ const MapComponent = ({
   pins = [],
   onMapClick,
   onDeletePin,
-  recentPinId, // Destructure recentPinId from props
+  recentPinId,
 }: MapComponentProps) => {
   const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
     null
   );
 
-  // Log the markerPosition state for debugging
-  useEffect(() => {
-    console.log("markerPosition:", markerPosition);
-  }, [markerPosition]);
-
-  // Handle map click events
   const MapClickHandler = () => {
     useMapEvent("click", (e) => {
       const { lat, lng } = e.latlng;
 
-      // Log the coordinates for debugging
-      console.log("Map click coordinates:", lat, lng);
-
-      // Validate lat and lng
       if (typeof lat !== "number" || typeof lng !== "number") {
         console.error("Invalid coordinates:", e.latlng);
         return;
       }
 
       setMarkerPosition([lat, lng]);
-      console.log("markerPosition set to:", [lat, lng]);
 
       if (onMapClick) {
-        console.log("Calling onMapClick with coordinates:", [lat, lng]);
         onMapClick([lat, lng]);
       }
     });
@@ -79,7 +67,6 @@ const MapComponent = ({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {/* Render stored pins */}
       {pins.map((pin, index) => (
         <Marker key={index} position={[pin.lat, pin.lng]} icon={defaultIcon}>
           <Popup>
@@ -96,7 +83,6 @@ const MapComponent = ({
         </Marker>
       ))}
 
-      {/* Render user-dropped pin only if markerPosition is valid */}
       {markerPosition && (
         <Marker position={markerPosition} icon={defaultIcon}>
           <Popup>
