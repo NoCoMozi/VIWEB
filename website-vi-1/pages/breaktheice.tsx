@@ -3,7 +3,6 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import "@/styles/pages/breaktheice.styles.scss";
 import { Pin } from "@/types/Pin";
-import { ObjectId } from "mongodb";
 
 const MapComponent = dynamic(() => import("../src/components/Map/Map"), {
   ssr: false,
@@ -14,19 +13,13 @@ export default function BreakTheIce() {
   const [center, setCenter] = useState<[number, number]>([38.9072, -77.0369]); // Washington, D.C.
   const [error, setError] = useState<string | null>(null);
   const [pins, setPins] = useState<Pin[]>([]);
+  const [recentPinId, setRecentPinId] = useState<string | null>(null); // Track the most recent pin
 
   useEffect(() => {
     const fetchPins = async () => {
       try {
         const response = await axios.get("/api/pins");
-
-        // If the response contains a `pins` array, use it directly
-        // Otherwise, assume the response is an array of pin objects
-        const pins = Array.isArray(response.data)
-          ? response.data
-          : response.data.pins;
-
-        setPins(pins);
+        setPins(response.data);
       } catch (error) {
         console.error("Error fetching pins:", error);
       }
@@ -37,14 +30,20 @@ export default function BreakTheIce() {
 
   const handleDeletePin = async (_id: string) => {
     try {
-      console.log("Deleting pin with ID:", _id); // Log the _id
-
       const response = await axios.delete("/api/pins", {
         data: { _id },
       });
 
+      console.log("Pin deleted successfully:", response.data.deletedPin);
 
-      setPins((prevPins) => prevPins.filter((pin) => pin._id !== _id));
+      setPins((prevPins) => {
+        const updatedPins = prevPins.filter((pin) => pin._id !== _id);
+        return updatedPins;
+      });
+
+      if (_id === recentPinId) {
+        setRecentPinId(null);
+      }
     } catch (error) {
       console.error("Error deleting pin:", error);
     }
@@ -87,15 +86,23 @@ export default function BreakTheIce() {
         lng: coords[1],
       });
 
-      // Extract the `pin` object from the response
       const newPin = response.data.pin;
 
       // Update the pins state with the new pin
       setPins((prevPins) => [...prevPins, newPin]);
+
+      // Set the recentPinId to the new pin's _id
+      setRecentPinId(newPin._id);
+
+      // Clear the recentPinId after 1 minute
+      setTimeout(() => {
+        setRecentPinId(null);
+      }, 60000); // 1 minute in milliseconds
     } catch (error) {
       console.error("Error saving pin:", error);
     }
   };
+
   return (
     <div className="home-container">
       <div className="BTI_info_container">
@@ -129,10 +136,12 @@ export default function BreakTheIce() {
       </div>
       {error && <p className="error-message">{error}</p>}
       <MapComponent
+        key={pins.length}
         center={center}
         pins={pins}
         onMapClick={handleMapClick}
         onDeletePin={handleDeletePin}
+        recentPinId={recentPinId}
       />
     </div>
   );
