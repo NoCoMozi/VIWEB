@@ -1,9 +1,10 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMapEvent } from "react-leaflet/hooks";
 import "@/styles/components/map.styles.scss";
+import { Pin } from "@/types/Pin";
 
 // Fix for default marker icons in Leaflet
 const defaultIcon = L.icon({
@@ -19,20 +20,33 @@ const defaultIcon = L.icon({
 
 interface MapComponentProps {
   center: [number, number];
-  pins?: { lat: number; lng: number }[];
+  pins?: Pin[];
   onMapClick?: (coords: [number, number]) => void;
+  onDeletePin?: (id: string) => void;
 }
 
-const MapComponent = ({ center, pins = [], onMapClick }: MapComponentProps) => {
+const MapComponent = ({
+  center,
+  pins = [],
+  onMapClick,
+  onDeletePin,
+}: MapComponentProps) => {
   const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
     null
   );
 
-  // Handle map click events
   const MapClickHandler = () => {
     useMapEvent("click", (e) => {
       const { lat, lng } = e.latlng;
+
+      // Validate lat and lng
+      if (typeof lat !== "number" || typeof lng !== "number") {
+        console.error("Invalid coordinates:", e.latlng);
+        return;
+      }
+
       setMarkerPosition([lat, lng]);
+
       if (onMapClick) {
         onMapClick([lat, lng]);
       }
@@ -52,19 +66,30 @@ const MapComponent = ({ center, pins = [], onMapClick }: MapComponentProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {/* Render stored pins */}
       {pins.map((pin, index) => (
         <Marker key={index} position={[pin.lat, pin.lng]} icon={defaultIcon}>
-          <Popup>Pinned Location</Popup>
+          <Popup>
+            {"Lat: " + pin.lat + " / Long: " + pin.lng}
+            <button
+              onClick={() => onDeletePin && onDeletePin(pin._id)}
+              className="delete-button"
+            >
+              Delete Pin
+            </button>
+          </Popup>
         </Marker>
       ))}
 
       {/* Render user-dropped pin */}
       {markerPosition && (
         <Marker position={markerPosition} icon={defaultIcon}>
-          <Popup>Your pinned location</Popup>
+          <Popup>
+            {"Lat: " + markerPosition[0] + " / Long: " + markerPosition[1]}
+          </Popup>
         </Marker>
       )}
+
+      <MapClickHandler />
 
       <MapClickHandler />
     </MapContainer>
