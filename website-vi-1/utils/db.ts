@@ -25,6 +25,10 @@ export const getAllCollections = async () => {
   try {
     const db = await connectToDatabase();
 
+    if (!db.db) {
+      throw new Error("Database connection failed: db.db is undefined");
+    }
+
     const collections = await db.db.listCollections().toArray();
     return collections.map((collection) => collection.name);
   } catch (error) {
@@ -36,6 +40,10 @@ export const getAllCollections = async () => {
 export const getCollectionData = async (collectionName: string) => {
   try {
     const db = await connectToDatabase();
+
+    if (!db.db) {
+      throw new Error("Database connection failed: db.db is undefined");
+    }
 
     // Use Mongoose's native connection to fetch data
     const collection = db.db.collection(collectionName);
