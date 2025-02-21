@@ -22,6 +22,7 @@ const About = () => {
         setMissionData(res.data);
       } catch (error) {
         setError("Failed to load mission data.");
+        console.error(error);
       }
     };
 

@@ -1,11 +1,11 @@
-// join.test.tsx
 import { render, screen } from "@testing-library/react";
 import Join from "../join"; // Adjust the import path if necessary
 
-// Mock the `next/image` component as it's used in this page
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} alt={props.alt} />,
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img {...props} alt={props.alt} />
+  ),
 }));
 
 describe("Join Page", () => {
