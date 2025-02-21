@@ -22,7 +22,7 @@ const join = () => {
           </h3>
           <h3>
             There is a holding room process for vetting for the telegram chat so
-            please be patient if you aren't let in right away. We do this for
+            please be patient if you are not let in right away. We do this for
             your safety and to ensure anyone who joins does so with positive
             intentions
           </h3>

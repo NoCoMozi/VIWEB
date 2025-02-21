@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import Header from "./Header";
 import "@testing-library/jest-dom";
-import { useRouter } from "next/router";
 
-// Mock Next.js Link and Image components
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />,
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img {...props} />
+  ),
 }));
 
 jest.mock("next/link", () => ({

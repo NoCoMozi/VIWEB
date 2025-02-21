@@ -1,14 +1,13 @@
 import React from "react";
-import Header from "@/components/Header/Header"; // Import the Header component
-import "@/styles/globals.css"; // Your global styles
+import Header from "@/components/Header/Header";
+import "@/styles/globals.css";
+import type { AppProps } from "next/app"; 
 
-const MyApp = ({ Component, pageProps }: any) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      {/* Header will be shown on every page */}
       <Header />
       <main>
-        {/* The specific page content will be rendered here */}
         <Component {...pageProps} />
       </main>
     </>

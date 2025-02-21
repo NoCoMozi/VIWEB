@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMapEvent } from "react-leaflet/hooks";
 import "@/styles/components/map.styles.scss";
 import { Pin } from "@/types/Pin";

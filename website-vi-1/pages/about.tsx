@@ -11,7 +11,7 @@ interface Mission {
   content: string[];
 }
 
-const about = () => {
+const About = () => {
   const [missionData, setMissionData] = useState<Mission[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,4 +66,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default About;
