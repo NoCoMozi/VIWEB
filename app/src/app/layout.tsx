@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Script from "next/script"; // Import the Script component
+import Script from "next/script";
 import "@/styles/globals.css";
 
 const poppins = Poppins({
@@ -37,7 +37,6 @@ export default function RootLayout({
       </head>
       <body className={`${poppins.variable}`}>
         {children}
-        {/* Use the Script component for Leaflet.js */}
         <Script
           src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="

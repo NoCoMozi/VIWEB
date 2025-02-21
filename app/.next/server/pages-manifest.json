@@ -2,7 +2,5 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/mission": "pages/api/mission.js",
-  "/about": "pages/about.js",
-  "/join": "pages/join.js"
+  "/api/mission": "pages/api/mission.js"
 }
