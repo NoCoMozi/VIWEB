@@ -15,10 +15,10 @@
     }
     .join_header {
       position: absolute;
-      top: 89%;
       left: 50%;
+      bottom: 0;
       width: 100%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       color: #c6953b;
       font-size: 4rem;
       font-weight: bold;
@@ -37,9 +37,11 @@
   .join_page_information_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.3fr;
-    gap: 0px 0px;
-    grid-template-areas: ". .";
+    gap: 10px;
+    width: 100%;
+    overflow: hidden;
+    margin-left: 2%;
+    margin-right: 2%;
 
     .join_telegram_container {
       display: flex;
@@ -89,6 +91,7 @@
       }
     }
     .join_contact_form {
+      max-width: 1000px;
       width: 80%;
     }
   }
