@@ -1,8 +1,6 @@
 @import "../variables";
 
 .button {
-  appearance: button;
-  backface-visibility: hidden;
   background-color: $primary-button-color;
   border-radius: 6px;
   border-width: 0;
@@ -11,9 +9,8 @@
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
-    Ubuntu, sans-serif;
   font-size: 100%;
+  font-weight: 600;
   height: 44px;
   line-height: 1.15;
   margin: 12px 0 0;
@@ -26,7 +23,6 @@
   transform: translateZ(0);
   transition: all 0.2s, box-shadow 0.08s ease-in;
   user-select: none;
-  touch-action: manipulation;
   width: 30%;
 }
 
@@ -34,9 +30,8 @@
   cursor: default;
 }
 
-// CHANGE COLOR
 .button:hover {
-  background-color: #59978A; /* Darker shade on hover */
+  background-color: #59978a; /* Darker shade on hover */
 }
 
 ///fix this
