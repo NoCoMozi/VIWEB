@@ -18,14 +18,18 @@
 
   .title-container {
     margin-bottom: 3rem;
+    h1 {
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+    }
   }
   .description-container {
     width: 60%;
     display: flex;
     flex-direction: column;
 
-    p {
-      margin-top: 15px;
+    .mission-content {
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+      text-align: center;
     }
   }
   .buttons-container {
@@ -33,6 +37,6 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 40px;
   }
 }

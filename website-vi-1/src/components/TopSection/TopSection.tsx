@@ -24,7 +24,7 @@ const TopSection = ({ missionData }: TopSectionProps) => {
 
       <div className="description-container">
         {missionData.length > 0 && missionData[0].content.length > 0 ? (
-          <h3>{missionData[0].content[0]}</h3>
+          <h3 className="mission-content">{missionData[0].content[0]}</h3>
         ) : (
           <h3>No mission data available.</h3>
         )}
