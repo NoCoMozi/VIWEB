@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Join from "../join";
+import Join from "../pages/join";
 
 jest.mock("next/image", () => ({
   __esModule: true,

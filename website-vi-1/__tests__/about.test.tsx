@@ -1,5 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import About from "../about";
+import About from "../pages/about";
 import axios from "axios";
 
 jest.mock("axios");
