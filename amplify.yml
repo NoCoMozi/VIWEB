@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd app # Change to the folder containing package.json
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: app/.next # Path to the Next.js build output
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - app/node_modules/**/* # Cache the node_modules folder
