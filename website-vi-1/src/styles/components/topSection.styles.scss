@@ -14,6 +14,7 @@
   width: 100%;
   height: 25rem;
   color: $primary-white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
 
   .title-container {
     margin-bottom: 3rem;
@@ -25,7 +26,6 @@
 
     p {
       margin-top: 15px;
-      text-shadow: 0em 0em 0.3em rgba(240, 183, 25, 0.4);
     }
   }
   .buttons-container {
@@ -36,19 +36,3 @@
     margin-top: 50px;
   }
 }
-
-// body {
-//   background: radial-gradient(
-//     circle,
-//     rgba(63, 42, 86, 0.8) 10%,
-//     rgba(63, 42, 86, 0) 80%
-//   );
-//   height: 100vh;
-//   margin: 0;
-// }
-
-// body {
-//   background: linear-gradient(to bottom, rgba(63, 42, 86, 0.8) 0%, rgba(63, 42, 86, 0) 80%);
-//   height: 100vh;
-//   margin: 0;
-// }
