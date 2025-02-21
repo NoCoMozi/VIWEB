@@ -10,7 +10,7 @@ interface Mission {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch("https://production.dzqkn52hddyow.amplifyapp.com/"); // fix for when I have host
+    const res = await fetch("http://localhost:3000/api/mission"); // fix for when I have host
     const missionData = await res.json();
 
     return {
