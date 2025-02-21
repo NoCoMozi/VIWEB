@@ -1,0 +1,46 @@
+.header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3f2a56;
+  height: 6rem;
+  width: 100%;
+
+  // Border? Work on this
+  border-bottom: solid 1px;
+  border-color: #4f6070;
+  .logo {
+    margin-left: 1rem;
+    width: 20rem;
+    height: 3rem;
+  }
+  .links-container {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    margin-right: 2rem;
+    .link {
+      color: white;
+      font-weight: 600;
+      margin: 1rem;
+    }
+  }
+}
+
+/* Remove underline for all anchor tags */
+a {
+  text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    height: 7rem;
+    margin-right: 0;
+    .logo {
+      padding-top: 1rem;
+    }
+  }
+}
