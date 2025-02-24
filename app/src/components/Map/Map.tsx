@@ -71,7 +71,7 @@ const MapComponent = ({
         <Marker key={index} position={[pin.lat, pin.lng]} icon={defaultIcon}>
           <Popup>
             {"Lat: " + pin.lat + " / Long: " + pin.lng}
-            {pin._id === recentPinId && ( // Show delete button only for the recent pin
+            {pin._id === recentPinId && (
               <button
                 onClick={() => onDeletePin && onDeletePin(pin._id)}
                 className="delete-button"

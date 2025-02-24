@@ -3,6 +3,7 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import "@/styles/pages/breaktheice.styles.scss";
 import { Pin } from "@/types/Pin";
+import Button from "@/components/Button/Button";
 
 const MapComponent = dynamic(() => import("../src/components/Map/Map"), {
   ssr: false,
@@ -13,7 +14,7 @@ export default function BreakTheIce() {
   const [center, setCenter] = useState<[number, number]>([38.9072, -77.0369]); // Washington, D.C.
   const [error, setError] = useState<string | null>(null);
   const [pins, setPins] = useState<Pin[]>([]);
-  const [recentPinId, setRecentPinId] = useState<string | null>(null); // Track the most recent pin
+  const [recentPinId, setRecentPinId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPins = async () => {
@@ -88,13 +89,10 @@ export default function BreakTheIce() {
 
       const newPin = response.data.pin;
 
-      // Update the pins state with the new pin
       setPins((prevPins) => [...prevPins, newPin]);
 
-      // Set the recentPinId to the new pin's _id
       setRecentPinId(newPin._id);
 
-      // Clear the recentPinId after 1 minute
       setTimeout(() => {
         setRecentPinId(null);
       }, 60000); // 1 minute in milliseconds
@@ -104,23 +102,29 @@ export default function BreakTheIce() {
   };
 
   return (
-    <div className="home-container">
-      <div className="BTI_info_container">
-        <h1>Welcome to Break the Ice</h1>
-        <p>
+    <div className="bti-container">
+      <h1 className="bti-header">Welcome to Break the Ice</h1>
+
+      <div className="bti_info_container">
+        <p className="bti-explain">
           This page is for informing people of where I.C.E has been spotted. It
-          allows for you to come in and drop a pin in the location you saw I.C.E
+          allows for you to come in and drop a pin in the location you saw
+          I.C.E. This pin will stay around for 24 hours to help inform others.
         </p>
-        <h2> How it Works:</h2>
-        <p>
-          1. Type in the Zip Code of the location you spotted I.C.E in and click
-          Search{" "}
-        </p>
-        <p>
-          2. Zoom into around the location you saw I.C.E with the arrows at the
-          top left of the map{" "}
-        </p>
-        <p>3. Drop a pin by clicking the location on the map </p>
+        <div className="bti-hit">
+          <h2 className="bti-hit-header"> How it Works:</h2>
+          <p>
+            1. Type in the Zip Code of the location you spotted I.C.E in and
+            click Search{" "}
+          </p>
+          <p>
+            2. Zoom into around the location you saw I.C.E with the arrows at
+            the top left of the map{" "}
+          </p>
+          <p>3. Drop a pin by clicking the location on the map </p>
+          <p>4. If you accidently drop a pin in the wrong location you have 1 minute to delete the pin before its saved </p>
+
+        </div>
       </div>
       <div className="search-container">
         <input
@@ -130,9 +134,7 @@ export default function BreakTheIce() {
           onChange={handleZipCodeChange}
           className="input-field"
         />
-        <button onClick={handleSearch} className="search-button">
-          Search
-        </button>
+        <Button onClick={handleSearch} text="Search"></Button>
       </div>
       {error && <p className="error-message">{error}</p>}
       <MapComponent

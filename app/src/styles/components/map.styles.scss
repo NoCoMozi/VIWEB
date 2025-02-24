@@ -1,3 +1,5 @@
+@import "../variables";
+
 .map-container {
   height: 500px;
   width: 100%;
@@ -10,6 +12,22 @@
 }
 
 .leaflet-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
   font-size: 14px;
   text-align: center;
+  color: #632b63;
+  font-size: 15px;
+  font-weight: 600;
+}
+.delete-button {
+  background-color: $primary-button-color;
+  border-radius: 6px;
+  width: 50%;
+  color: white;
+  font-weight: 600;
+  margin-top: 5px;
 }
