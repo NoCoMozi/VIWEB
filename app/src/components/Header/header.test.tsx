@@ -31,6 +31,7 @@ describe("Header Component", () => {
     expect(screen.getByText("Join")).toBeInTheDocument();
     expect(screen.getByText("Support")).toBeInTheDocument();
     expect(screen.getByText("Shop")).toBeInTheDocument();
+    expect(screen.getByText("Break The Ice")).toBeInTheDocument();
   });
 
   test("should contain all navigation links", () => {
@@ -38,12 +39,13 @@ describe("Header Component", () => {
 
     const links = screen.getAllByRole("link");
 
-    expect(links).toHaveLength(5); // We are rendering 5 links in total
+    expect(links).toHaveLength(6); // We are rendering 5 links in total
     expect(links[0]).toHaveAttribute("href", "/");
     expect(links[1]).toHaveAttribute("href", "/about");
     expect(links[2]).toHaveAttribute("href", "/join");
-    expect(links[3]).toHaveAttribute("href", "/support");
-    expect(links[4]).toHaveAttribute("href", "/shop");
+    expect(links[3]).toHaveAttribute("href", "/breaktheice");
+    expect(links[4]).toHaveAttribute("href", "/support");
+    expect(links[5]).toHaveAttribute("href", "/shop");
   });
 
   test("renders the links with correct text content", () => {
@@ -53,6 +55,8 @@ describe("Header Component", () => {
     expect(screen.getByText("About")).toBeInTheDocument();
     expect(screen.getByText("Join")).toBeInTheDocument();
     expect(screen.getByText("Support")).toBeInTheDocument();
+    expect(screen.getByText("Shop")).toBeInTheDocument();
+    expect(screen.getByText("Break The Ice")).toBeInTheDocument();
   });
 
   test("link navigates to the correct URL", () => {
@@ -69,5 +73,11 @@ describe("Header Component", () => {
 
     const supportLink = screen.getByText("Support");
     expect(supportLink).toHaveAttribute("href", "/support");
+
+    const shopLink = screen.getByText("Shop");
+    expect(shopLink).toHaveAttribute("href", "/shop");
+
+    const breakTheIceLink = screen.getByText("Break The Ice");
+    expect(breakTheIceLink).toHaveAttribute("href", "/breaktheice");
   });
 });
