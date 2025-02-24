@@ -2,12 +2,9 @@
 
 .bti-container {
   padding: 20px;
-  background: rgb(99, 43, 99);
-  background: linear-gradient(
-    0deg,
-    rgba(99, 43, 99, 1) 0%,
-    rgba(63, 42, 86, 1) 100%
-  );
+  flex: 1;
+  height: 100%;
+
   .search-container {
     margin-bottom: 10px;
     display: flex;
