@@ -122,6 +122,8 @@ export default function BreakTheIce() {
             the top left of the map{" "}
           </p>
           <p>3. Drop a pin by clicking the location on the map </p>
+          <p>4. If you accidently drop a pin in the wrong location you have 1 minute to delete the pin before its saved </p>
+
         </div>
       </div>
       <div className="search-container">
