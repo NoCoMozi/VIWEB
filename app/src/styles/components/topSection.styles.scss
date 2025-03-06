@@ -91,11 +91,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       
-      // Remove the previous animations
-      &::before {
-        display: none;
-      }
-      
       // Create the flickering fire effect with improved timing
       &::after {
         content: attr(data-text);
@@ -311,6 +306,10 @@
     height: auto;
     padding: 5rem 1rem;
     
+    .title-container {
+      margin-bottom: 2.5rem;
+    }
+    
     .title-container h1 {
       font-size: 6rem;
       
@@ -323,11 +322,19 @@
 
 @media (max-width: 768px) {
   .top-section-container {
+    padding: 4rem 1rem;
+    
+    .title-container {
+      margin-bottom: 2rem;
+    }
+    
     .title-container h1 {
       font-size: 4rem;
       
       &:before, &:after {
         filter: blur(4px);
+        // Reduce animation intensity for better performance
+        animation-duration: 8s;
       }
     }
     
@@ -336,7 +343,86 @@
       
       .mission-content {
         font-size: 1.2rem;
+        line-height: 1.5;
       }
+    }
+    
+    // Simplify animations for better mobile performance
+    &::before, &::after {
+      animation-duration: 10s;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .top-section-container {
+    padding: 3.5rem 0.75rem;
+    
+    .title-container {
+      margin-bottom: 1.75rem;
+      
+      h1 {
+        font-size: 3rem;
+        
+        &:before, &:after {
+          filter: blur(3px);
+          // Further reduce animation complexity
+          opacity: 0.8;
+        }
+      }
+    }
+    
+    .description-container {
+      width: 95%;
+      
+      .mission-content {
+        font-size: 1.1rem;
+        line-height: 1.4;
+        padding: 0 10px;
+      }
+    }
+    
+    .buttons-container {
+      margin-top: 30px;
+      width: 95%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .top-section-container {
+    padding: 3rem 0.5rem;
+    
+    .title-container {
+      margin-bottom: 1.5rem;
+      
+      h1 {
+        font-size: 2.25rem;
+        
+        &:before, &:after {
+          // Optimize for mobile performance
+          animation: none;
+          opacity: 0.6;
+          filter: blur(2px);
+        }
+      }
+    }
+    
+    .description-container {
+      .mission-content {
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+    }
+    
+    // Simplify background effects for better performance
+    &::before {
+      animation: none;
+      opacity: 0.5;
+    }
+    
+    &::after {
+      display: none; // Remove particle effect on very small screens
     }
   }
 }
