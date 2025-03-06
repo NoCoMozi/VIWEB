@@ -11,7 +11,6 @@ import {
   faTelegram,
   faTiktok
 } from "@fortawesome/free-brands-svg-icons";
-import MailingList from "@/components/MailingList/MailingList";
 
 const join = () => {
   return (
@@ -57,9 +56,6 @@ const join = () => {
           <Link className="join_link" href={"https://tr.ee/01X6whegb7"}>
             Linktree Reddit
           </Link>
-          <div className="mailing-list-section">
-            <MailingList />
-          </div>
         </div>
         <div className="join_contact_form">
           <ContactForm />
